@@ -1,0 +1,53 @@
+header {
+    width: 100%;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: stretch; /* Elementy zajmują całą wysokość */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-title {
+    flex-grow: 1; /* Zajmuje całe dostępne wolne miejsce */
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.header-title h1 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+}
+
+.header-button {
+    background-color: var(--primary-hover);
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 0 3rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.header-button:hover {
+    background-color: #97591f;
+}
+
+/* Responsywność nagłówka dla telefonów */
+@media (max-width: 600px) {
+    header {
+        flex-direction: column; /* Na małych ekranach układa jeden pod drugim */
+    }
+    .header-title {
+        justify-content: center;
+    }
+    .header-button {
+        padding: 1.5rem;
+        width: 100%;
+    }
+}

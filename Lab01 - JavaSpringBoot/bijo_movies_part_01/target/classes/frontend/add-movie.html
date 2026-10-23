@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Movies - Dodaj film</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header.css">
+    <script src="js/add-movie.js" defer></script>
+</head>
+<body>
+<header>
+    <div class="header-title">
+        <h1>Dodaj film</h1>
+    </div>
+    <button class="header-button" id="back">POWRÓT</button>
+</header>
+
+<main>
+    <div id="target" class="messages"></div>
+
+    <div class="form-container">
+        <form id="add-movie-form">
+            <div class="form-group">
+                <label for="title">Tytuł filmu:</label>
+                <input id="title" name="title" type="text" required placeholder="Wpisz tytuł..." />
+            </div>
+
+            <div class="form-group">
+                <label for="image">Link do obrazka (jpg/png):</label>
+                <input id="image" name="image" type="text" required placeholder="./img/movies/plik.jpg" />
+            </div>
+
+            <div class="form-group">
+                <label for="year">Rok produkcji:</label>
+                <input id="year" name="year" type="number" min="1900" max="2100" required placeholder="Np. 2023" />
+            </div>
+
+            <button type="submit" class="btn">Zapisz film</button>
+        </form>
+    </div>
+</main>
+</body>
+</html>
