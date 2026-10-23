@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Movies - Szczegóły filmu</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header.css">
+</head>
+<body>
+<header>
+    <div class="header-title">
+        <h1 id="title">Szczegóły filmu</h1>
+    </div>
+    <button class="header-button" id="back">POWRÓT</button>
+</header>
+
+<main>
+    <div class="form-container" style="max-width: 800px; text-align: center;">
+        <h2 id="movie-title" style="margin-bottom: 1.5rem; font-size: 2rem; color: var(--text-main);">Ładowanie tytułu...</h2>
+
+        <div id="video-container">
+            <!-- Odtwarzacz wideo -->
+            <iframe
+                    id="trailer-frame"
+                    width="100%"
+                    height="400"
+                    frameborder="0"
+                    allowfullscreen
+                    style="display: none; border-radius: 8px; box-shadow: var(--shadow);">
+            </iframe>
+
+            <!-- Komunikat w przypadku braku videoId -->
+            <p id="no-video-msg" style="display: none; color: var(--text-muted); font-size: 1.1rem; padding: 2rem 0;">
+                Brak dostępnego zwiastuna dla tego filmu.
+            </p>
+        </div>
+    </div>
+</main>
+
+<script src="./js/details-movie.js"></script>
+</body>
+</html>
