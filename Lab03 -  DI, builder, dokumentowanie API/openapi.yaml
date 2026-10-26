@@ -1,0 +1,192 @@
+openapi: 3.0.3
+info:
+  title: Movie API - Biblioteka Filmów
+  description: |
+    Dokumentacja techniczna REST API aplikacji **Biblioteka filmów** (movies).
+    Aplikacja umożliwia przeglądanie listy filmów, pobieranie szczegółów z trailerem YouTube, dodawanie nowych filmów oraz ich usuwanie.
+  version: 1.0.0
+  contact:
+    name: Akademia Tarnowska - Katedra Informatyki
+servers:
+  - url: http://127.0.0.1:8080/api
+    description: Lokalny serwer deweloperski Spring Boot
+  - url: http://localhost:8080/api
+    description: Alternatywny adres lokalny
+
+tags:
+  - name: Movies
+    description: Operacje na zasobach filmów
+
+paths:
+  /movies:
+    get:
+      tags:
+        - Movies
+      summary: Pobierz listę wszystkich filmów
+      description: Zwraca listę wszystkich filmów dostępnych w bazie danych, posortowaną malejąco po roku produkcji.
+      operationId: getMovies
+      responses:
+        '200':
+          description: Pomyślnie pobrano listę filmów
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MovieDto'
+              example:
+                - movieId: 1
+                  title: "Kontrola absolutna"
+                  image: "./img/movies/control.jpg"
+                  year: 2016
+                - movieId: 2
+                  title: "Ex Machina"
+                  image: "./img/movies/exmachina.jpg"
+                  year: 2015
+
+    post:
+      tags:
+        - Movies
+      summary: Dodaj nowy film
+      description: Tworzy nowy film w bazie danych na podstawie przekazanych danych w ciele żądania.
+      operationId: createMovie
+      requestBody:
+        description: Dane formularza tworzenia nowego filmu
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMovieDto'
+            example:
+              title: "Zielona mila"
+              image: "./img/movies/greenmile.jpg"
+              year: 1999
+              videoId: "s0f3JeDVeEo"
+      responses:
+        '201':
+          description: Film został pomyślnie utworzony
+          headers:
+            Location:
+              description: URI do nowo utworzonego filmu
+              schema:
+                type: string
+                example: "/api/movies/10"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateMovieDto'
+        '400':
+          description: Niepoprawne dane wejściowe
+
+  /movies/{movieId}:
+    get:
+      tags:
+        - Movies
+      summary: Pobierz szczegóły filmu
+      description: Zwraca szczegółowe dane filmu (w tym identyfikator trailera YouTube) dla podanego identyfikatora `movieId`.
+      operationId: getMovieDetails
+      parameters:
+        - name: movieId
+          in: path
+          description: Unikalny identyfikator filmu
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+      responses:
+        '200':
+          description: Pomyślnie pobrano szczegóły filmu
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovieDetailsDto'
+              example:
+                title: "Kontrola absolutna"
+                videoId: "_W_1dmcSthE"
+        '404':
+          description: Film o podanym identyfikatorze nie został znaleziony
+
+    delete:
+      tags:
+        - Movies
+      summary: Usuń film
+      description: Usuwa film z bazy danych na podstawie przekazanego identyfikatora `movieId`.
+      operationId: deleteMovie
+      parameters:
+        - name: movieId
+          in: path
+          description: Unikalny identyfikator filmu do usunięcia
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+      responses:
+        '200':
+          description: Film został pomyślnie usunięty z bazy danych
+        '404':
+          description: Film o podanym identyfikatorze nie istnieje w bazie danych
+
+components:
+  schemas:
+    MovieDto:
+      type: object
+      description: Obiekt reprezentujący film na liście
+      properties:
+        movieId:
+          type: integer
+          format: int64
+          description: Identyfikator filmu
+          example: 1
+        title:
+          type: string
+          description: Tytuł filmu
+          example: "Kontrola absolutna"
+        image:
+          type: string
+          description: Ścieżka lub URL do plakatu filmu
+          example: "./img/movies/control.jpg"
+        year:
+          type: integer
+          description: Rok produkcji filmu
+          example: 2016
+
+    MovieDetailsDto:
+      type: object
+      description: Obiekt szczegółów filmu zawierający tytuł oraz identyfikator wideo
+      properties:
+        title:
+          type: string
+          description: Tytuł filmu
+          example: "Kontrola absolutna"
+        videoId:
+          type: string
+          description: Identyfikator wideo na platformie YouTube
+          example: "_W_1dmcSthE"
+
+    CreateMovieDto:
+      type: object
+      description: Obiekt formularza dodawania nowego filmu
+      required:
+        - title
+        - image
+        - year
+        - videoId
+      properties:
+        title:
+          type: string
+          description: Tytuł filmu
+          example: "Zielona mila"
+        image:
+          type: string
+          description: Ścieżka lub URL do plakatu filmu
+          example: "./img/movies/greenmile.jpg"
+        year:
+          type: integer
+          description: Rok produkcji filmu
+          example: 1999
+        videoId:
+          type: string
+          description: Identyfikator wideo na platformie YouTube
+          example: "s0f3JeDVeEo"
