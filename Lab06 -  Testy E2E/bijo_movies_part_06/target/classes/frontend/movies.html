@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>IT Movies - Biblioteka</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/header.css">
+	<!-- Wczytanie skryptu z atrybutem defer (uruchomi się po załadowaniu strony) -->
+	<script src="js/movies.js" defer></script>
+</head>
+<body>
+<header>
+	<div class="header-title">
+		<h1>Biblioteka filmów</h1>
+	</div>
+	<button class="header-button" id="add-movie">DODAJ FILM</button>
+</header>
+
+<main>
+	<section class="search-section" style="max-width: 1400px; margin: 0 auto 2rem auto; background-color: var(--card-bg); padding: 1.5rem; border-radius: 12px; box-shadow: var(--shadow);">
+		<div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+			<input type="text" id="search-title" placeholder="Szukaj po tytule..." style="flex: 2; min-width: 200px; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem;" />
+			<input type="number" id="search-year" placeholder="Rok produkcji..." style="flex: 1; min-width: 140px; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem;" />
+			<button id="search-btn" class="btn" style="width: auto; min-width: 120px; margin: 0;">Szukaj</button>
+			<button id="reset-btn" class="btn" style="width: auto; min-width: 120px; margin: 0; background-color: #6c757d;">Resetuj filtry</button>
+		</div>
+	</section>
+
+	<div class="movies-grid" id="movies">
+		<!-- Tutaj JavaScript wstrzyknie filmy -->
+	</div>
+</main>
+</body>
+</html>
